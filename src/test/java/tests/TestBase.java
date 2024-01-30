@@ -20,18 +20,18 @@ public class TestBase {
         Configuration.timeout = 30000;
     }
 
+    @BeforeEach
+    void addListener() {
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        open();
+    }
+
     @AfterEach
     void addAttachments() {
         String sessionId = sessionId().toString();
         Attach.pageSource();
         closeWebDriver();
         Attach.addVideo(sessionId);
-    }
-
-    @BeforeEach
-    void addListener() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-        open();
     }
 
 }
